@@ -9,6 +9,7 @@ namespace API.Controllers
     [Authorize]
     public class UserController : BaseApiController
         {
+
         private readonly AppDbContext _context;
         public UserController( AppDbContext _context )
             {

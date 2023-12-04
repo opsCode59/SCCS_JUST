@@ -1,0 +1,12 @@
+@media(max-width:576px){
+  .flex-small-column{
+      flex-direction:column;
+      width:100%;
+  }
+  .width-small-full{
+      width:150px;
+  }
+}
+.pointer{
+    cursor:pointer;
+}

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hp\\Desktop\\web\\ASP.NET Core With Angular Course\\DatingApp\\API\\API.csproj": {}
+    "C:\\Users\\hp\\Documents\\SCCS_JUST\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hp\\Desktop\\web\\ASP.NET Core With Angular Course\\DatingApp\\API\\API.csproj": {
+    "C:\\Users\\hp\\Documents\\SCCS_JUST\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hp\\Desktop\\web\\ASP.NET Core With Angular Course\\DatingApp\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\hp\\Documents\\SCCS_JUST\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\hp\\Desktop\\web\\ASP.NET Core With Angular Course\\DatingApp\\API\\API.csproj",
+        "projectPath": "C:\\Users\\hp\\Documents\\SCCS_JUST\\API\\API.csproj",
         "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hp\\Desktop\\web\\ASP.NET Core With Angular Course\\DatingApp\\API\\obj\\",
+        "outputPath": "C:\\Users\\hp\\Documents\\SCCS_JUST\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,13 +40,25 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "CloudinaryDotNet": {
+              "target": "Package",
+              "version": "[1.24.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.13, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.13, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.13, )"
+              "version": "[7.0.17, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

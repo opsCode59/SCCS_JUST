@@ -1,0 +1,33 @@
+<div class="container mt-5 d-flex justify-content-center align-items-center">
+  <form
+    [formGroup]="registerForm"
+    autocomplete="off"
+    (ngSubmit)="registerForm.valid && register()"
+    class="p-4 p-md-5 mt-5 border rounded-3 bg-light w-100"
+  >
+    <h2 class="text-center">Add Schedule</h2>
+
+    <app-text-input
+      [formControl]="$any(registerForm.controls['username'])"
+      [label]="'Username'"
+    ></app-text-input>
+   <app-text-input
+      [formControl]="$any(registerForm.controls['clinicUserName'])"
+      [label]="'clinic UserName'"
+    ></app-text-input>
+    <app-date-pickers
+      [formControl]="$any(registerForm.controls['dateOfBirth'])"
+      [label]="'Schedule Date'"
+      [minDate]="minDate"
+    ></app-date-pickers>
+    <button
+      class="w-100 btn btn-lg btn-primary"
+      [disabled]="!registerForm.valid"
+      type="submit"
+    >
+      Sign up
+    </button>
+    <hr class="my-4" />
+    <button class="w-100 btn btn-lg border-1" routerLink="/clinicDashbord">Cancel</button>
+  </form>
+</div>

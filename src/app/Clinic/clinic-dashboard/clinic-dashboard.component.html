@@ -1,0 +1,32 @@
+<div class="container">
+  <div style="margin-top: 100px">
+    <h2>Clinic Dashboard</h2>
+    <div class="tab-panel">
+      <tabset class="member-tabset">
+        <tab heading="Appointment" *appHasRole="['Clinic']">
+          <div class="container">
+            <app-appointment></app-appointment>
+          </div>
+        </tab>
+        <tab heading="View Feedback" *appHasRole="['Clinic']">
+          <div class="container">
+            <app-feedback></app-feedback>
+          </div>
+        </tab>
+        <tab heading="Post Management" *appHasRole="['Clinic']">
+          <div class="container mt-2">
+            <div class="d-flex justify-content-end align-items-center mb-3">
+              <button class="btn btn-sm btn-primary">ADD POST</button>
+            </div>
+            <app-post-management></app-post-management>
+          </div>
+        </tab>
+           <tab heading="View Schedule" *appHasRole="['Clinic']">
+          <div class="container">
+            <app-view-schedule></app-view-schedule>
+          </div>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>

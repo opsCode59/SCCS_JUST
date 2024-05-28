@@ -1,0 +1,8 @@
+<div class="row" *ngIf="feedbacks">
+  <div *ngFor="let feedback of feedbacks" class="col-12">
+    <div class="h-100 p-5 bg-dark rounded-3">
+      <h2 class="text-white">{{ feedback?.userName }}</h2>
+      <p class="text-white">{{ feedback?.content }}</p>
+    </div>
+  </div>
+</div>

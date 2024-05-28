@@ -1,0 +1,35 @@
+<div class="row">
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 50%">Username</th>
+        <th style="width: 50%"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let Appointment of Appointments">
+        <td>{{ Appointment.userName }}</td>
+        <td *ngIf="!Appointment.isApproved" class="d-flex gap-2 onMobileBtn">
+          <button
+            class="btn btn-sm btn-success me-1"
+            (click)="approveAppointment(Appointment.id)"
+          >
+            Approve
+          </button>
+          <button
+            class="btn btn-sm btndanger"
+            (click)="rejectAppointment(Appointment.id)"
+          >
+            Reject
+          </button>
+        </td>
+        <td *ngIf="Appointment.isApproved" class="d-flex gap-2 onMobileBtn">
+          <a routerLink="/clinicDashbord/schedule" class="btn btn-sm btn-info"
+            >Apply schedule</a
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

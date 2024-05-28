@@ -1,16 +1,209 @@
-<div  *ngIf="!registerMode" class="container" style="margin-top:80px">
-  <main class="px-3 mt-5">
-    <h1>Welcome to Dating App .</h1>
-    <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
-    <p class="lead d-flex gap-2">
-      <a class="btn btn-lg btn-primary fw-bold" (click)="registerToggle()">Register</a>
-      <a href="#" class="btn btn-lg btn-secondary fw-bold">Learn more</a>
-    </p>
-  </main>
-</div>
-<div *ngIf="registerMode" class="container" style="margin-top:80px">
-  <div class="row justify-content-center mt-5">
-    <app-register [usersFromHomeComponent]="users" (cancelRegister)="cancelRegisterMode($event)"></app-register>
-    <!--[usersFromHomeComponent]="users"-->
+<carousel [isAnimated]="true" [pauseOnFocus]="true" *ngIf="!registerMode">
+  <div class="container">
+    <slide>
+      <div class="py-5" style="height: 650px">
+        <div class="container centerCarousel d-flex align-items-center px-5">
+          <div class="CarouselPart1">
+            <h2 class="text-primary fw-bold">
+              Smoking Cessation Clinics System
+            </h2>
+            <div class="lead">
+              <p class="">
+                Do you want to stop smoking or vaping, or are you a
+                <span class="fw-bold">doctor</span> who wants help and join
+                clinics to help individuals quit smoking? We're here for you
+                every step of the way with tools, tips, and support. The
+                important thing is to keep trying to quit smoking, until you
+                stop smoking forever, and if you are a doctor you can register
+                with us and help the clinics.
+              </p>
+              <a
+                *ngIf="!(accountService.currentUser$ | async)"
+                (click)="registerToggle()"
+                class="btn btn-outline-primary"
+                >Register Now</a
+              >
+            </div>
+          </div>
+          <div class="CarouselPart2">
+            <img src="{{ './assets/Doctor_And_Patient.png' }}" alt="" />
+          </div>
+        </div>
+      </div>
+    </slide>
+    <slide>
+      <div class="py-5" style="height: 650px">
+        <div class="container centerCarousel d-flex align-items-center px-5">
+          <div class="CarouselPart1">
+            <h2 class="text-primary fw-bold">Are You Clinic</h2>
+            <div class="lead">
+              <p class="">
+                You can make a patient schedule, accept or decline the
+                appointment, help your patient get treatment, and even provide
+                consultations.
+              </p>
+              <a
+                *ngIf="!(accountService.currentUser$ | async)"
+                class="btn btn-outline-primary"
+                routerLink="/ClinicRegister"
+                >Join Now</a
+              >
+            </div>
+          </div>
+          <div class="CarouselPart2">
+            <img src="{{ './assets/clinic.png' }}" alt="" />
+          </div>
+        </div>
+      </div>
+    </slide>
   </div>
+</carousel>
+
+<div class="container mt-5 mb-5 pb-3 text-center" *ngIf="!registerMode">
+  <h3 class="headerSection1 mb-4">Our Services</h3>
+  <div class="row row-cols-1 row-cols-md-5 mb-3">
+    <div
+      class="col pt-2 pb-2 card bg-primary text-light shadow-sm rounded-0 d-flex justify-content-center align-items-center flex-column"
+    >
+      <div
+        class="card-header d-flex justify-content-center align-items-center flex-column border-bottom-0 py-3 pb-0"
+      >
+        <h1><i class="fa fa-calendar text-light"></i></h1>
+        <h5 class="my-0 fw-bold text-uppercase headerSection fs-6">
+          Book an Appointment
+        </h5>
+      </div>
+      <div class="card-body text-center">
+        <p class="card-title pricing-card-title">
+          Complete our online form and receive a callback to confirm your
+          appointment
+        </p>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btnSmall btn-sm text-uppercase">
+          book now
+        </button>
+      </div>
+    </div>
+    <div
+      class="col pt-2 pb-2 card bg-primary text-light shadow-sm rounded-0 d-flex justify-content-center align-items-center flex-column"
+    >
+      <div
+        class="card-header d-flex justify-content-center align-items-center flex-column border-bottom-0 py-3 pb-0"
+      >
+        <h1><i class="fa fa-clock-o text-light"></i></h1>
+        <h4 class="my-0 fw-bold text-uppercase headerSection fs-6">
+          Working Hours
+        </h4>
+      </div>
+      <div class="card-body text-center">
+        <p class="card-title pricing-card-title">
+          Outpatient Clinics opening hours
+          <br />Sat - Thu <br />Emergency 24/7
+        </p>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btnSmall btn-sm text-uppercase">
+          contact us
+        </button>
+      </div>
+    </div>
+    <div
+      class="col pt-2 pb-2 card bg-primary text-light shadow-sm rounded-0 d-flex justify-content-center align-items-center flex-column"
+    >
+      <div
+        class="card-header d-flex justify-content-center align-items-center flex-column border-bottom-0 py-3 pb-0"
+      >
+        <h1><i class="fa fa-hospital-o text-light"></i></h1>
+        <h4 class="my-0 fw-bold text-uppercase headerSection fs-6">
+          Find a Clinic
+        </h4>
+      </div>
+      <div class="card-body text-center">
+        <p class="card-title pricing-card-title">
+          Get information about everything related to smoking cessation clinics
+        </p>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btnSmall btn-sm text-uppercase">
+          find now
+        </button>
+      </div>
+    </div>
+    <div
+      class="col card pt-2 pb-2 bg-primary text-light shadow-sm rounded-0 d-flex justify-content-center align-items-center flex-column"
+    >
+      <div
+        class="card-header d-flex justify-content-center align-items-center flex-column border-bottom-0 py-3 pb-0"
+      >
+        <h1><i class="fa fa-comments-o text-light"></i></h1>
+        <h4 class="my-0 fw-bold text-uppercase headerSection fs-6">
+          Chat System
+        </h4>
+      </div>
+      <div class="card-body text-center">
+        <p class="card-title pricing-card-title">
+          you can make messages between clinic and doctor
+        </p>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btnSmall btn-sm text-uppercase">
+          Message now
+        </button>
+      </div>
+    </div>
+    <div
+      class="col card pt-2 pb-2 bg-primary text-light shadow-sm rounded-0 d-flex justify-content-center align-items-center flex-column"
+    >
+      <div
+        class="card-header d-flex justify-content-center align-items-center flex-column border-bottom-0 py-3 pb-0"
+      >
+        <h1><i class="fa fa-share-square text-light"></i></h1>
+        <h4 class="my-0 fw-bold text-uppercase headerSection fs-6">blogs</h4>
+      </div>
+      <div class="card-body text-center">
+        <p class="card-title pricing-card-title">
+          doctors and clinics can add posts.
+        </p>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btnSmall btn-sm text-uppercase">
+          make post
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--overView-->
+<div class="overView bg-light pt-3 pb-3" *ngIf="!registerMode">
+  <div class="container text-center mb-4 mt-5">
+    <h3 class="headerSection1 mb-4">
+      Welcome to <span class="fw-bold">SCCS</span>
+    </h3>
+    <P
+      >The Smoking Cessation Clinic system will help people that needs guidance
+      and assistance in quitting smoking and provide a powerful means that
+      enables them to take control of their health, improve their quality of
+      life and improve the impact on public health. Also, it will provide
+      smoking cessation clinics with a system that facilitates their work,
+      increases their efficiency, and increases the spread of these clinics</P
+    >
+    <video
+      style="width: 100%; height: 550px"
+      controls
+      oncontextmenu="return false;"
+    >
+      <source src="{{ './assets/VideoSlider.mp4' }}" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
+
+<!--register form-->
+<div *ngIf="registerMode">
+  <app-register
+    [usersFromHomeComponent]="users"
+    (cancelRegister)="cancelRegisterMode($event)"
+  ></app-register>
 </div>

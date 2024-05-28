@@ -1,0 +1,6 @@
+@media (max-width: 767px) {
+  .onMobileBtn {
+    flex-direction: column;
+    gap: 20px;
+  }
+}

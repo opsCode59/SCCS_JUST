@@ -1,0 +1,65 @@
+<div class="row g-6 mb-6" *ngIf="adminService.statistics$ | async">
+  <div class="col-xl-3 col-sm-6 col-12">
+    <div class="card shadow border-0">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <span class="h6 font-semibold text-muted text-sm d-block mb-2"
+              >Total User
+            </span>
+            <span class="h3 font-bold mb-0">{{ Statistics?.totalUser }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6 col-12">
+    <div class="card shadow border-0">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <span class="h6 font-semibold text-muted text-sm d-block mb-2"
+              >Total Patient</span
+            >
+            <span class="h3 font-bold mb-0">{{
+              Statistics?.totalPatient
+            }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6 col-12">
+    <div class="card shadow border-0">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <span class="h6 font-semibold text-muted text-sm d-block mb-2"
+              >Total Doctor</span
+            >
+            <span class="h3 font-bold mb-0">{{ Statistics?.totalDoctor }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6 col-12">
+    <div class="card shadow border-0">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <span class="h6 font-semibold text-muted text-sm d-block mb-2"
+              >Total Clinic</span
+            >
+            <span class="h3 font-bold mb-0">{{ Statistics?.totalClinic }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mt-4">
+  <button class="btn btn-primary" (click)="reloadData()">
+    Reload Statistics Data
+  </button>
+</div>

@@ -1,0 +1,26 @@
+<div class="row">
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 30%">Username</th>
+        <th style="width: 30%">Schedule Date</th>
+        <th style="width: 30%">Delete Schedule</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let Schedule of schedules">
+        <td>{{ Schedule.userName }}</td>
+        <td>{{ Schedule.scheduleDate | date : "longDate"  }}</td>
+
+        <td class="d-flex gap-2 onMobileBtn">
+          <button
+            class="btn btn-sm btn-danger"
+            (click)="deleteSchedule(Schedule.userName, Schedule.clinicUserName)">
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,1 +1,129 @@
-<p>member-detail works!</p>
+<div class="container">
+  <div class="row" style="margin-top: 100px">
+    <div class="col-4">
+      <div class="card mb-4">
+        <div class="card-img-wrapper m-3">
+          <img
+            src="{{ member.photoUrl || './assets/user.png' }}"
+            class="card-img-top"
+            alt="{{ member.knownAs }}"
+          />
+        </div>
+        <div class="card-body">
+          <div
+            class="mb-2 d-flex"
+            *ngIf="
+              (presenceService.onlineUsers$ | async)?.includes(member.userName)
+            "
+          >
+            <div class="border rounded-circle bg-success">
+              <i
+                class="d-flex justify-content-center align-items-center class fa fa-user text-light"
+                style="width: 20px; height: 20px"
+              ></i>
+            </div>
+            Online now
+          </div>
+          <div
+            class="mb-2 d-flex"
+            *ngIf="
+              !(presenceService.onlineUsers$ | async)?.includes(member.userName)
+            "
+          >
+            <div class="bg border rounded-circle bg-danger">
+              <i
+                class="d-flex justify-content-center align-items-center class fa fa-user text-light"
+                style="width: 20px; height: 20px"
+              ></i>
+            </div>
+            Offline
+          </div>
+          <div>
+            <strong>Location:</strong>
+            <p class="card-text">{{ member.city }}, {{ member.country }}</p>
+          </div>
+          <div>
+            <strong>Age:</strong>
+            <p class="card-text">{{ member.age }}</p>
+          </div>
+          <div
+            *ngIf="
+              !(presenceService.onlineUsers$ | async)?.includes(member.userName)
+            "
+          >
+            <strong>Last active:</strong>
+            <p class="card-text">{{ member.lastActive | timeago }}</p>
+          </div>
+          <div>
+            <strong>Member since:</strong>
+            <p class="card-text">{{ member.created | date : "longDate" }}</p>
+          </div>
+          <div class="card-body gap-3">
+            <div class="d-flex mb-2 gap-2">
+              <a (click)="AddLike(member)" class="btn w-50 btn-sm btn-success"
+                >likes</a
+              >
+              <a
+                class="btn w-50 btn-sm btn-info"
+                (click)="selectTab('Messages')"
+                >Massages</a
+              >
+            </div>
+            <div *ngIf="member.gender === 'Clinic'">
+              <a (click)="addAppointment()" class="btn w-100 btn-sm btn-primary"
+                >Add Appointment</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div>
+        <tabset class="member-tabset" #memberTabs>
+          <tab
+            class="p-3"
+            id="tab1"
+            heading="About {{ member.knownAs }}"
+            (selectTab)="onTabActivated($event)"
+          >
+            <div class="mb-2">
+              <h4>introduction</h4>
+              <p>{{ member.introduction }}</p>
+            </div>
+            <div class="mb-2">
+              <h4>LookingFor</h4>
+              <p>{{ member.lookingFor }}</p>
+            </div>
+          </tab>
+          <tab
+            class="p-3"
+            heading="interests"
+            (selectTab)="onTabActivated($event)"
+          >
+            <h4>Interests</h4>
+            <p>{{ member.interests }}</p>
+          </tab>
+          <tab
+            class="p-3"
+            heading="Photos"
+            #photoTab="tab"
+            (selectTab)="onTabActivated($event)"
+          >
+            <gallery *ngIf="photoTab.active" [items]="images"> </gallery>
+          </tab>
+          <tab
+            class="p-3"
+            heading="Messages"
+            (selectTab)="onTabActivated($event)"
+          >
+            <h4>Massages</h4>
+            <app-member-messages
+              [username]="member.userName"
+            ></app-member-messages>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,10 +9,11 @@ export const authGuard: CanActivateFn = (route, state) => {
   const toastr = inject(ToastrService);
   return accountService.currentUser$.pipe(
     map(user => {
-      if (user) return true;
-      else
+      if (user) { return true; }
+      else {
         toastr.error('user is not authorized');
-      return false;
+        return false;
+      }
     })
   );
 

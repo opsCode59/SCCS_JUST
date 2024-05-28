@@ -1,0 +1,74 @@
+
+<div class="container col-xl-10 col-xxl-8 px-4 py-5">
+  <div class="row align-items-center g-lg-5 py-5">
+    <div class="col mx-auto col-lg-8">
+      <h2 class="text-center shadow">Create Account</h2>
+      <form
+        [formGroup]="registerForm"
+        autocomplete="off"
+        (ngSubmit)="registerForm.valid && register()"
+        class="p-4 p-md-5 border rounded-3 bg-light shadow"
+      >
+        <app-text-input
+          [formControl]="$any(registerForm.controls['username'])"
+          [label]="'Username'"
+        ></app-text-input>
+        <app-text-input
+          [formControl]="$any(registerForm.controls['knownAs'])"
+          [label]="'Known As'"
+        ></app-text-input>
+        <app-date-picker
+          [formControl]="$any(registerForm.controls['dateOfBirth'])"
+          [label]="'Date Of Birth'"
+          [maxDate]="maxDate"
+        ></app-date-picker>
+        <app-text-input
+          [formControl]="$any(registerForm.controls['city'])"
+          [label]="'City'"
+        ></app-text-input>
+        <app-text-input
+          [formControl]="$any(registerForm.controls['country'])"
+          [label]="'Country'"
+        ></app-text-input>
+        <div class="m-3 fw-bold">
+          <label style="margin-right: 10px">Role</label>
+          <br />
+          <label class="form-check-label">
+            <input type="radio" formControlName="gender" value="male" /> Patient
+            <input type="radio" formControlName="gender" value="Doctor" />
+            Doctor
+            <input type="radio" formControlName="gender" value="Clinic" />
+            Clinic
+          </label>
+        </div>
+        <app-text-input
+          [formControl]="$any(registerForm.controls['password'])"
+          [label]="'Password'"
+          [type]="'password'"
+        ></app-text-input>
+        <app-text-input
+          [formControl]="$any(registerForm.controls['confirmPassword'])"
+          [label]="'Confirm Password'"
+          [type]="'password'"
+        ></app-text-input>
+
+        <button
+          class="w-100 btn btn-lg btn-primary"
+          [disabled]="!registerForm.valid"
+          type="submit"
+        >
+          create
+        </button>
+        <hr class="my-4" />
+        <button class="w-100 btn btn-lg border-1" (click)="cancel()">
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+  crossorigin="anonymous"
+></script>

@@ -20,7 +20,7 @@ public class UnitOfWork : IUnitOfWork
     public IFeedbackRepository FeedbackRepository => new FeedbackRepository(appDbContext);
     public IPhotoRepo photoRepo => new PhotoRepo(appDbContext);
     public IAppointmentRepository appointmentRepository => new AppointmentRepository(appDbContext);
-  public IScheduleRepository scheduleRepository => new ScheduleRepository(appDbContext);
+    public IScheduleRepository scheduleRepository => new ScheduleRepository(appDbContext);
     public IPostRepository postRepository => new PostRepository(appDbContext);
     public async Task<bool> Complate()
         {

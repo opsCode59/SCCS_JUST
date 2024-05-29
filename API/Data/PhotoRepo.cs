@@ -34,7 +34,14 @@ public class PhotoRepo : IPhotoRepo
                 }).ToListAsync();
         }
 
-    public void RemovePhoto( Photo photo )
+    public async Task<Photo> getPhotoByAppUserId( int appUserId )
+        {
+        return await _context.Photos
+            .IgnoreQueryFilters()
+            .SingleOrDefaultAsync(x => x.AppUserId == appUserId);
+        }
+
+        public void RemovePhoto( Photo photo )
         {
         _context.Photos.Remove(photo);
         }
@@ -44,4 +51,5 @@ public interface IPhotoRepo
     Task<IEnumerable<PhotoForApprovalDto>> GetUnapprovedPhotos();
     Task<Photo> GetPhotoById( int id );
     void RemovePhoto( Photo photo );
+    Task<Photo> getPhotoByAppUserId( int appuserId );
     }

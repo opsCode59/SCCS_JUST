@@ -50,6 +50,15 @@ namespace API.Controllers
             var scheduleDto = mapper.Map<IEnumerable<CreateScheduleDto>>(schedules);
             return Ok(scheduleDto);
             }
+        [HttpGet("view-schedules/{userName}")]
+        public async Task<ActionResult<CreateScheduleDto>> GetSchedulesByUserName( string UserName )
+            {
+            var schedules = await unitOfWork.scheduleRepository.GetSchedulesByUserNameAsync(UserName);
+            if (schedules == null)
+                return NotFound("schedules Not Found");
+            var scheduleDto = mapper.Map<IEnumerable<CreateScheduleDto>>(schedules);
+            return Ok(scheduleDto);
+            }
         [HttpDelete("delete-schedule")]
         public async Task<ActionResult> deleteSchedule( [FromQuery] string userName, [FromQuery] string clinicUserName )
             {
@@ -67,21 +76,19 @@ namespace API.Controllers
         [HttpPost("add-schedule")]
         public async Task<ActionResult> AddSchedule(  CreateScheduleDto createScheduleDto )
             {
-            var user = await unitOfWork.UserRepository.GetUserByUsernameAsync(createScheduleDto.clinicUserName);
-            if (user == null)
-                return NotFound("User not found");
+            if (createScheduleDto == null)
+                return BadRequest("Invalid schedule data");
+            var schedules = await unitOfWork.scheduleRepository.GetScheduleByUserNameClinicUserName(createScheduleDto.userName,createScheduleDto.clinicUserName);
+            if (schedules != null)
+                return BadRequest("You have already Schedule");
+            var schedule = mapper.Map<Schedule>(createScheduleDto);
 
-            var userRoles = await userManager.GetRolesAsync(user);
-            if (!userRoles.Contains("Clinic"))
-                return Forbid("Current User is not a Clinic");
+            unitOfWork.scheduleRepository.AddAsync(schedule);
 
-            var Patient = await unitOfWork.scheduleRepository.GetScheduleByUserName(createScheduleDto.userName);
-
-            var Scheddule = mapper.Map<Schedule>(createScheduleDto);
-            await unitOfWork.scheduleRepository.AddAsync(Scheddule);
             if (await unitOfWork.Complate())
                 return Ok();
-            return BadRequest("Problem to Add Schedule");
+
+            return BadRequest("Failed to add schedule");
             }
         /****************************************/
 

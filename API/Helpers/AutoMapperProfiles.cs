@@ -10,6 +10,10 @@ namespace API.Helpers
         public AutoMapperProfiles()
             {
 
+            CreateMap<Feedback, CreateFeedbackDto>();
+            CreateMap<CreateFeedbackDto, Feedback>();
+
+
 
             CreateMap<Post, PostDto>();
             CreateMap<PostDto, Post>();

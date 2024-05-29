@@ -9,10 +9,10 @@ namespace API.Controllers
     {
     public class PostController : BaseApiController
         {
-        private readonly UnitOfWork unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
 
-        public PostController( UnitOfWork unitOfWork, IMapper mapper )
+        public PostController( IUnitOfWork unitOfWork, IMapper mapper )
             {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
@@ -21,9 +21,10 @@ namespace API.Controllers
         public async Task<ActionResult> AddPost( CreatePostDto createPostDto )
             {
             var post = mapper.Map<Post>(createPostDto);
+            post.SenderUsername= User.GetUsername();
             await unitOfWork.postRepository.AddPost(post);
             if (await unitOfWork.Complate())
-                return Ok("Post Is Added");
+                return Ok();
             return BadRequest("Problem to Add Post");
             }
         [HttpDelete("delete-post/{id}")]
@@ -33,7 +34,7 @@ namespace API.Controllers
             if (result)
                 {
                 if (await unitOfWork.Complate())
-                    return Ok("Post Is Deleted");
+                    return Ok();
                 }
             return BadRequest("Problem to Delete Post");
             }
@@ -43,9 +44,10 @@ namespace API.Controllers
             var post = await unitOfWork.postRepository.GetPostById(postDto.Id);
             if (post == null)
                 return NotFound();
-            mapper.Map(postDto, post);
+            postDto.created = DateTime.UtcNow;
+             mapper.Map(postDto, post);
             if (await unitOfWork.Complate())
-                return Ok("Update is Confirm");
+                return Ok();
             return BadRequest("Failed to update user");
             }
         [HttpGet("blogs")]
@@ -53,10 +55,31 @@ namespace API.Controllers
             {
             var posts = await unitOfWork.postRepository.GetAllPosts();
             if (posts == null)
-                return BadRequest("posts is not found");
-            var postmapper = mapper.Map<IEnumerable<PostDto>>(posts);
-            return Ok(postmapper);
+                return BadRequest("Posts not found");
+
+            var postDtos = new List<PostDto>();
+            foreach (var post in posts)
+                {
+                var postDto = mapper.Map<PostDto>(post);
+
+                // Get the user associated with the post
+                var user = await unitOfWork.UserRepository.GetUserByUsernameAsync(post.SenderUsername);
+                if (user != null)
+                    {
+                    // Get the photo associated with the user
+                    var photo = await unitOfWork.photoRepo.getPhotoByAppUserId(user.Id);
+                    if (photo != null && photo.Url != null)
+                        {
+                        postDto.url = photo.Url;
+                        }
+                    }
+
+                postDtos.Add(postDto);
+                }
+
+            return Ok(postDtos);
             }
+
         [HttpGet("view-Posts/{username}")]
         public async Task<ActionResult<IEnumerable<PostDto>>> GetAllPostsBySenderUserName(string username)
             {
@@ -65,6 +88,20 @@ namespace API.Controllers
                 return BadRequest("posts is not found");
             var postmapper = mapper.Map<IEnumerable<PostDto>>(posts);
             return Ok(postmapper);
+            }
+        [HttpGet("user-Photo/{username}")]
+        public async Task<ActionResult<string>> GetPhotoUser( string username )
+            {
+            var user = await unitOfWork.UserRepository.GetUserByUsernameAsync(username);
+            if (user == null)
+                return BadRequest("User not found");
+
+            var photo = await unitOfWork.photoRepo.getPhotoByAppUserId(user.Id);
+            if (photo == null)
+                return BadRequest("Photo not found");
+            if (photo.Url==null)
+                return BadRequest("Url is not found");
+            return Ok(photo.Url);
             }
         }
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LXh1MrTEKS2XLYa3atcAqOoEvDTKzLLJch+2HNTYDpNx8YVCPJD5H7KLDRHf3A+vjxPVXOIhLHOER1JQRhGgiQ==",
+  "dgSpecHash": "DCt0k49gzwrKeV/+muhwCf7qOpsL8YH5Yxhemms+BE17ei2I2TBJRHadQbhu8JxzJv3Df6zn164twhg9/0OxuA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\hp\\Documents\\SCCS_JUST\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\hp\\Documents\\SCCS_JUST\\api\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hp\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

@@ -1,5 +1,6 @@
 ﻿using API.DTOs;
 using API.Entities;
+using API.Extensions;
 using API.Repository;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -38,15 +39,20 @@ namespace API.Controllers
             return Ok(mapper.Map<IEnumerable<FeedbackDto>>(feedbacks));
             }
         [HttpPost("Add-Feedback")]
-        public async Task<ActionResult<FeedbackDto>> PostFeedback( [FromBody] FeedbackDto feedbackDto )
+        public async Task<ActionResult<FeedbackDto>> PostFeedback(CreateFeedbackDto feedbackDto )
             {
+            var user = await unitOfWork.UserRepository.GetUserByUsernameAsync(feedbackDto.userName);
+            if (user == null)
+                return NotFound("user is Not Found");
+
             var feedback = mapper.Map<Feedback>(feedbackDto);
+            feedback.AppUserId=user.Id;
+
             await unitOfWork.FeedbackRepository.AddAsync(feedback);
 
             if (await unitOfWork.Complate())
                 {
-                var createdFeedback = mapper.Map<FeedbackDto>(feedback);
-                return Ok(createdFeedback);
+                return Ok();
                 }
 
             return BadRequest("Failed to add feedback");

@@ -54,11 +54,17 @@ public class ScheduleRepository : IScheduleRepository
         {
         return await appDbContext.schedules.Where(x=>x.clinicUserName==clinicUserName).ToListAsync();
         }
+
+    public async Task<IEnumerable<Schedule>> GetSchedulesByUserNameAsync( string UserName )
+        {
+        return await appDbContext.schedules.Where(x => x.userName == UserName).ToListAsync();
+        }
     }
 public interface IScheduleRepository
     {
 
     Task<IEnumerable<Schedule>> GetSchedulesByClinicUserNameAsync( string clinicUserName );
+    Task<IEnumerable<Schedule>> GetSchedulesByUserNameAsync( string UserName );
     Task<Schedule> GetScheduleByUserName(string userName );   
     Task<bool> DeleteAsync( int id );
     Task AddAsync( Schedule schedule );

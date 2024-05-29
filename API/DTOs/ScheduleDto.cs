@@ -10,7 +10,7 @@ namespace API.DTOs
         public string userName { get; set; }
         [Required]
 
-        public DateTime scheduleDate { get; set; }
+        public DateTime dateOfBirth { get; set; }
         [Required]
 
         public string clinicUserName { get; set; }

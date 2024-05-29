@@ -37,9 +37,9 @@ public class PostRepository : IPostRepository
         return await appDbContext.posts.Where(x => x.SenderUsername == username).ToListAsync();
         }
 
-    public Task<Post> GetPostById( int id )
+    public async Task<Post> GetPostById( int id )
         {
-        throw new NotImplementedException();
+        return await appDbContext.posts.FindAsync(id);
         }
 
     public void UpdatePost( Post post )
